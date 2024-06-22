@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+
+    <!-- font awesome cdn link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <section class="flex">
+        <a href="home.html" class="logo">Rightminds.</a>
+
+        <form action="search.html" method="post" class="search-form">
+          <input
+            type="text"
+            name="search_box"
+            required
+            placeholder="search courses..."
+            maxlength="100"
+          />
+          <button type="submit" class="fas fa-search"></button>
+        </form>
+
+        <div class="icons">
+          <div id="menu-btn" class="fas fa-bars"></div>
+          <div id="search-btn" class="fas fa-search"></div>
+          <div id="user-btn" class="fas fa-user"></div>
+          <div id="toggle-btn" class="fas fa-sun"></div>
+        </div>
+
+        <div class="profile">
+          <img src="images/pic-1.jpg" class="image" alt="" />
+          <h3 class="name">shaikh ana</h3>
+          <p class="role">studen</p>
+          <a href="profile.html" class="btn">view profile</a>
+          <div class="flex-btn">
+            <a href="login.html" class="option-btn">login</a>
+            <a href="register.html" class="option-btn">register</a>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <div class="side-bar">
+      <div id="close-btn">
+        <i class="fas fa-times"></i>
+      </div>
+
+      <div class="profile">
+        <img src="images/pic-1.jpg" class="image" alt="" />
+        <h3 class="name">shaikh anas</h3>
+        <p class="role">studen</p>
+        <a href="profile.html" class="btn">view profile</a>
+      </div>
+
+      <nav class="navbar">
+        <a href="home.html"><i class="fas fa-home"></i><span>home</span></a>
+        <a href="about.html"
+          ><i class="fas fa-question"></i><span>about</span></a
+        >
+        <a href="chatgpt.html"
+          ><i class="fas fa-graduation-cap"></i><span>chatgpt</span></a
+        >
+        <a href="teachers.html"
+          ><i class="fas fa-chalkboard-user"></i><span>time-bound</span></a
+        >
+        <a href="contact.html"
+          ><i class="fas fa-headset"></i><span>contact us</span></a
+        >
+      </nav>
+    </div>
+
+    <section class="time-bound-grid">
+      <h1>quick options</h1>
+      <div class="streaks">
+        <span>
+          <h1>weekly streak</h1>
+          <p>Impressive! We admire your dedication to learning.</p>
+        </span>
+        <span class="streak-count">
+          <h2 id="streak">streak:</h2>
+          <p>current streaks</p>
+        </span>
+
+        <span class="streak-details">
+          <h2>429/30 course min</h2>
+          <p>6/1 visit</p>
+          <p>june 12-22</p>
+        </span>
+      </div>
+
+      <div class="time-tracker">
+        <h2>Time Tracker</h2>
+        <label for="activity">Activity:</label>
+        <input type="text" id="activity" placeholder="Enter your activity" />
+
+        <label for="duration">Duration (in hours):</label>
+        <input
+          type="number"
+          id="duration"
+          min="1"
+          placeholder="Enter duration"
+        />
+
+        <button onclick="startTimer()">Start Timer</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      &copy; copyright @ 2022 by <span> Dev chris</span> | all rights reserved!
+    </footer>
+
+    <!-- custom js file link  -->
+
+    <script src="js/script.js"></script>
+
+    <script>
+      let timerInterval;
+      let streakDays = 0;
+      let lastActivityDate = 0;
+
+      function startTimer() {
+        const activity = document.getElementById("activity").value.trim();
+        const durationHours = parseFloat(
+          document.getElementById("duration").value
+        );
+
+        if (activity === "" || isNaN(durationHours) || durationHours <= 0) {
+          alert("Please enter valid activity and duration.");
+          return;
+        }
+
+        // Convert hours to milliseconds
+        const durationMilliseconds = durationHours * 60 * 60 * 1000;
+
+        const endTime = new Date(Date.now() + durationMilliseconds);
+
+        // Update streak if this is a new day
+        const currentDate = new Date();
+        if (
+          !lastActivityDate ||
+          lastActivityDate.getDate() !== currentDate.getDate()
+        ) {
+          streakDays++;
+          document.getElementById("streak").textContent = streakDays + " days";
+        }
+        lastActivityDate = currentDate;
+
+        // Start countdown timer
+        timerInterval = setInterval(() => {
+          const remainingTime = endTime - Date.now();
+          if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            alert(`Time's up for ${activity}!`);
+            // You can add logic here to update backend or store activity log
+
+            // Example: Reset form inputs
+            document.getElementById("activity").value = "";
+            document.getElementById("duration").value = "";
+
+            // Optional: Update streak visually (in case backend confirmation is delayed)
+            document.getElementById("streak").textContent =
+              streakDays + " days";
+          }
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>

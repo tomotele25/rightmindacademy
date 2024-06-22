@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loading Page</title>
+    <link rel="stylesheet" href="./loading.css" />
+  </head>
+  <body>
+    <div id="loading-container">
+      <div class="spinner"></div>
+      <p>Loading, please wait...</p>
+    </div>
+    <script>
+      // Simulate loading complete after 3 seconds (for demonstration purposes)
+      setTimeout(() => {
+        document.getElementById("loading-container").style.display = "none";
+      }, 3000);
+    </script>
+  </body>
+</html>
